@@ -7,6 +7,7 @@ source_text = "abcdefghijklmnopqrstuvwxyz1234567890"
 
 def create_lookup(source, offset=3):
     encoding_lookup = {}
+    encoding_lookup['offset'] = offset
     source_len = len(source)
     for index in range(len(source)):
         new_index = (index+offset) % source_len
@@ -36,4 +37,4 @@ for line in sys.stdin:
 
 
 print("Message:")
-print(f"{''.join(result)}")
+print(f"{encoding_lookup['offset']}{''.join(result)}")
