@@ -43,14 +43,22 @@ encoding_lookup = {
 
 def encode(char):
     upper_char = char.upper()
-    if not (upper_char in encoding_lookup.keys()):
-        upper_char = "0"
-    encoded_char = encoding_lookup[upper_char]
+    if upper_char in encoding_lookup.keys():
+        encoded_char = encoding_lookup[upper_char]
+    else:
+        encoded_char = char
+
     return (upper_char, encoded_char)
 
 
+result = []
 for line in sys.stdin:
     chars = line.rstrip()
     for char in chars:
         encoded = encode(char)
         print(f"{encoded[0]} = {encoded[1]}")
+        result += [encoded[1]]
+
+
+print("Message:")
+print(f"{' '.join(result)}")
