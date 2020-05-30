@@ -41,11 +41,16 @@ encoding_lookup = {
 }
 
 
+def encode(char):
+    upper_char = char.upper()
+    if not (upper_char in encoding_lookup.keys()):
+        upper_char = "0"
+    encoded_char = encoding_lookup[upper_char]
+    return (upper_char, encoded_char)
+
+
 for line in sys.stdin:
     chars = line.rstrip()
-    for c in chars:
-        upper_char = c.upper()
-        if not (upper_char in encoding_lookup.keys()):
-            upper_char = "0"
-        morse_char = encoding_lookup[upper_char]
-        print(f"{upper_char} = {morse_char}")
+    for char in chars:
+        encoded = encode(char)
+        print(f"{encoded[0]} = {encoded[1]}")
