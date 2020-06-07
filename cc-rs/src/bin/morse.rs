@@ -50,20 +50,20 @@ fn main() -> io::Result<()> {
 
     handle.read_line(&mut buffer).unwrap();
     println!("{}", buffer);
-    let mut result = vec![];
+    let mut result: Vec<String> = vec![];
     for c in buffer.chars() {
         let upper_char = c.to_ascii_uppercase();
         let upper_key = upper_char.to_string();
         match encoding_lookup.get(&upper_key) {
             Some(&value) => {
                 println!("{}", value);
-                result.push(value);
+                result.push(value.to_string());
             }
             _ => {
                 println!("Key not found '{}'", &upper_key);
-                // let uk = upper_key.clone();
-                // result.push(&uk);
-                result.push(" "); // WORKS
+                let uk = upper_char.to_string();
+                result.push(uk);
+                // result.push(" "); // WORKS
             }
         }
     }
