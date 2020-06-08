@@ -1,7 +1,9 @@
 use std::collections::HashMap;
-use std::io::{self, BufRead, Read};
+use std::env;
+use std::io::{self, BufRead};
 
 fn main() -> io::Result<()> {
+    let debug = env::var("DEBUG").is_ok();
     let mut buffer = String::new();
     let stdin = io::stdin();
     let mut handle = stdin.lock();
@@ -56,11 +58,15 @@ fn main() -> io::Result<()> {
         let upper_key = upper_char.to_string();
         match encoding_lookup.get(&upper_key) {
             Some(&value) => {
-                println!("{}", value);
+                if debug {
+                    println!("{}", value);
+                }
                 result.push(value.to_string());
             }
             _ => {
-                println!("Key not found '{}'", &upper_key);
+                if debug {
+                    println!("Key not found '{}'", &upper_key);
+                }
                 let uk = upper_char.to_string();
                 result.push(uk);
                 // result.push(" "); // WORKS
