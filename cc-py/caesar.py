@@ -17,8 +17,10 @@ symbols_len = len(SYMBOLS)
 offset = args.offset
 mode = args.mode
 if message == None:
+    message = ""
     for line in sys.stdin:
-        message = line.rstrip()
+        message += line.rstrip()
+
 result = []
 for symbol in message:
     if symbol in SYMBOLS:
