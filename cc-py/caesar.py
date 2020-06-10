@@ -5,7 +5,7 @@ import argparse
 
 parser = argparse.ArgumentParser(description="Example")
 parser.add_argument("-m", "--message", type=str)
-parser.add_argument("-e", "--mode", type=str, default="enc")
+parser.add_argument("-e", "--mode", type=str, choices=["enc", "dec"], default="enc")
 parser.add_argument("-o", "--offset", type=int, default=3)
 
 args = parser.parse_args()
