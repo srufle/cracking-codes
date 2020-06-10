@@ -29,9 +29,9 @@ for symbol in message:
             translated_index = symbol_index - offset
 
         if translated_index >= symbols_len:
-            translated_index = symbol_index - symbols_len
+            translated_index = translated_index - symbols_len
         elif translated_index < 0:
-            translated_index = symbol_index + symbols_len
+            translated_index = translated_index + symbols_len
         result += SYMBOLS[translated_index]
     else:
         result += symbol
