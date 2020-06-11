@@ -3,7 +3,7 @@
 import sys
 import argparse
 
-parser = argparse.ArgumentParser(description="Example")
+parser = argparse.ArgumentParser(description="Caesar Cipher")
 parser.add_argument("-m", "--message", type=str)
 parser.add_argument("-e", "--mode", type=str, choices=["enc", "dec"], default="enc")
 parser.add_argument("-o", "--offset", type=int, default=3)

@@ -3,7 +3,7 @@
 import sys
 import argparse
 
-parser = argparse.ArgumentParser(description="Example")
+parser = argparse.ArgumentParser(description="Caesar Cipher Cracker")
 parser.add_argument("-m", "--message", type=str)
 
 args = parser.parse_args()
@@ -13,8 +13,10 @@ SYMBOLS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890!?."
 message = args.message
 symbols_len = len(SYMBOLS)
 if message == None:
+    message = ""
     for line in sys.stdin:
-        message = line.rstrip()
+        message += line.rstrip()
+
 for key in range(symbols_len):
     result = []
     for symbol in message:
