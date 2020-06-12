@@ -15,3 +15,8 @@ source .env/bin/activate
 # Install https://pypi.org/project/black/ code formatter
 pip install -U black
 ```
+
+Getting longer content to encrypt from:
+
+- [poetryfoundation](https://www.poetryfoundation.org)
+- [gutenberg.org](https://www.gutenberg.org/catalog/)
