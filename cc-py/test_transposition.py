@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
 import sys
-import argparse
 import math
 import random
 import transposition
-import transposition_hack
+import pytest
 
 
-def main():
+def test_trans_all():
     random.seed(42)
 
     for i in range(20):
@@ -22,13 +21,9 @@ def main():
         print(f"Test {i+1}: {message[:50]}")
         for key in range(1, int(len(message) / 2)):
             encrypted = transposition.encrypt_message(key, message)
-            decrypted = transposition_hack.decrypt_message(key, encrypted)
+            decrypted = transposition.decrypt_message(key, encrypted)
 
             if message != decrypted:
                 print(f"Mismatch with {key} and message {message}")
                 print(f"Decrypted as: {decrypted}")
                 sys.exit()
-
-
-if __name__ == "__main__":
-    main()
