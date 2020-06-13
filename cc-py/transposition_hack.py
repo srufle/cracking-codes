@@ -35,8 +35,8 @@ def decrypt_message(key, message):
         clear_text[column] += symbol
         column += 1
         no_more_columns = column == num_of_columns
-        at_shaded_box = (
-            column == num_of_columns - 1 and row >= num_of_rows - num_of_shaded_boxes
+        at_shaded_box = column == (num_of_columns - 1) and row >= (
+            num_of_rows - num_of_shaded_boxes
         )
         if no_more_columns or at_shaded_box:
             column = 0
