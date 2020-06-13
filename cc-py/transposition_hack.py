@@ -18,7 +18,7 @@ def main():
             message += line.rstrip()
 
     clear_text = decrypt_message(key, message)
-    print(f"Cipher:{clear_text}|")
+    print(f"Clear Text:{clear_text}|")
 
 
 def decrypt_message(key, message):
