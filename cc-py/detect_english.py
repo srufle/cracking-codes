@@ -70,3 +70,15 @@ def is_english(message, data, word_percentage=20, letter_percentage=85):
         message_letter_percentage = (float(num_letters) / message_len) * 100
     letters_match = message_letter_percentage >= letter_percentage
     return words_match and letters_match
+
+
+def get_words_file_path():
+    words_file = "content/english-words/words.txt"
+    count = 0
+    while not Path(words_file).exists():
+        words_file = "../" + words_file
+        print(f"Looking for '{words_file}'")
+        count += 1
+        if count > 99:
+            break
+    return words_file

@@ -7,25 +7,13 @@ import detect_english as de
 from pathlib import Path
 
 
-def get_words_file_path():
-    words_file = "content/english-words/words.txt"
-    count = 0
-    while not Path(words_file).exists():
-        words_file = "../" + words_file
-        print(f"Looking for '{words_file}'")
-        count += 1
-        if count > 99:
-            break
-    return words_file
-
-
 def test_detect_english_empty():
     data = de.load_data()
     assert de.is_english("", data) == False
 
 
 def test_detect_english_encrypted_text():
-    words_file = get_words_file_path()
+    words_file = de.get_words_file_path()
     data = de.load_data(words_file)
     encrypted_text = """
 OI FEO
@@ -60,7 +48,7 @@ T
 
 
 def test_detect_english_simple():
-    words_file = get_words_file_path()
+    words_file = de.get_words_file_path()
     data = de.load_data(words_file)
     clear_text = "Is this sentence English text?"
     assert (
