@@ -2,30 +2,76 @@
 import sys
 import argparse
 import math
+import time, os, datetime
 
 
 def main():
     parser = argparse.ArgumentParser(description="Transposition Cipher")
     parser.add_argument("-m", "--message", type=str)
+    parser.add_argument("-f", "--file", type=str)
     parser.add_argument("-e", "--mode", type=str, choices=["enc", "dec"], default="enc")
     parser.add_argument("-k", "--key", type=int, default=8)
 
     args = parser.parse_args()
     message = args.message
+    file_to_use = args.file
     key = args.key
     mode = args.mode
 
-    if message == None:
-        message = ""
-        for line in sys.stdin:
-            message += line.rstrip()
+    if file_to_use == None:
+        if message == None:
+            message = ""
+            for line in sys.stdin:
+                message += line.rstrip()
+    else:
+        if not os.path.exists(file_to_use):
+            print(f"'{file_to_use}' does not exist'")
+            sys.exit(1)
+
+        file_obj = open(file_to_use)
+        message = file_obj.read()
+        file_obj.close()
+
+    start_time = time.time()
+    if mode == "enc":
+        mode_name = "Encrypting"
+        out_file = gen_outfile_name(mode, file_to_use)
+        translated_text = encrypt_message(key, message)
+        if file_to_use == None:
+            print(f"Cipher:{translated_text}|")
+    elif mode == "dec":
+        mode_name = "Decrypting"
+        out_file = gen_outfile_name(mode, file_to_use)
+        translated_text = decrypt_message(key, message)
+        if file_to_use == None:
+            print(f"Clear Text:{translated_text}|")
+
+    total_time = round(time.time() - start_time, 2)
+    print(
+        f"Completed {mode_name} ({len(message)}) chars in: {datetime.timedelta(seconds=total_time)}"
+    )
+
+    file_obj = open(out_file, "w")
+    file_obj.write(translated_text)
+    file_obj.close()
+
+
+def gen_outfile_name(mode, filename):
+    parts = filename.split(".")
+
+    last_ext = "txt"
+    if len(parts) > 1:
+        last_ext = parts.pop()
 
     if mode == "enc":
-        cipher_text = encrypt_message(key, message)
-        print(f"Cipher:{cipher_text}|")
+        parts.append("encrypted")
     elif mode == "dec":
-        clear_text = decrypt_message(key, message)
-        print(f"Clear Text:{clear_text}|")
+        parts.append("decrypted")
+    else:
+        parts.append(last_ext)
+
+    out_name = f"{'.'.join(parts)}"
+    return out_name
 
 
 def encrypt_message(key, message):
