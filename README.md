@@ -20,3 +20,4 @@ Getting longer content to encrypt from:
 
 - [poetryfoundation](https://www.poetryfoundation.org)
 - [gutenberg.org](https://www.gutenberg.org/catalog/)
+- [GitHub - english words](https://github.com/dwyl/english-words)
