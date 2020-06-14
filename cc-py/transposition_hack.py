@@ -2,47 +2,56 @@
 import sys
 import argparse
 import math
+import time, os, datetime
+import logging as log
+import detect_english as de
+import transposition as tr
+from pathlib import Path
 
 
 def main():
+    log.basicConfig(level=log.INFO)
     parser = argparse.ArgumentParser(description="Transposition Cipher Cracker")
-    parser.add_argument("-m", "--message", type=str)
-    parser.add_argument("-k", "--key", type=int, default=8)
+    parser.add_argument("-f", "--file", type=str)
 
     args = parser.parse_args()
-    message = args.message
-    key = args.key
-    if message == None:
-        message = ""
-        for line in sys.stdin:
-            message += line.rstrip()
 
-    clear_text = decrypt_message(key, message)
-    print(f"Clear Text:{clear_text}|")
+    words_file = de.get_words_file_path()
+    data = de.load_data(words_file)
+
+    encrypted_file_path = args.file
+    encrypted_file = Path(encrypted_file_path).resolve()
+    if encrypted_file.exists():
+        with encrypted_file.open() as fo:
+            message = fo.read()
+    else:
+        print(f"Unable to find {encrypted_file_path}")
+        sys.exit(1)
+
+    clear_text = hack_message(message, data)
+    if clear_text == None:
+        print(f"Failed to hack {encrypted_file_path}")
+    else:
+        print(f"Hacked Message: {clear_text[:100]}")
 
 
-def decrypt_message(key, message):
-    num_of_columns = int(math.ceil(len(message) / float(key)))
-    num_of_rows = key
-    num_of_shaded_boxes = (num_of_columns * num_of_rows) - len(message)
+def hack_message(message, data):
+    log.info("Hacking")
 
-    clear_text = [""] * num_of_columns
-    column = 0
-    row = 0
+    for key in range(1, len(message)):
+        log.debug(f"Trying key: {key}")
+        decrypted_text = tr.decrypt_message(key, message)
+        if de.is_english(decrypted_text, data, word_percentage=50):
+            print()
+            print(f"Key:{key}, {decrypted_text[:25]}")
+            print()
+            print("Enter D if done, anything else will continue hacking:")
+            response = input(">")
 
-    # Loop through each column if cipher text
-    for symbol in message:
-        clear_text[column] += symbol
-        column += 1
-        no_more_columns = column == num_of_columns
-        at_shaded_box = column == (num_of_columns - 1) and row >= (
-            num_of_rows - num_of_shaded_boxes
-        )
-        if no_more_columns or at_shaded_box:
-            column = 0
-            row += 1
+            if response.strip().upper().startswith("D"):
+                return decrypted_text
 
-    return "".join(clear_text)
+    return None
 
 
 if __name__ == "__main__":
