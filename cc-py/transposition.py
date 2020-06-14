@@ -28,9 +28,8 @@ def main():
             print(f"'{file_to_use}' does not exist'")
             sys.exit(1)
 
-        file_obj = open(file_to_use)
-        message = file_obj.read()
-        file_obj.close()
+        with open(file_to_use) as fo:
+            message = fo.read()
 
     start_time = time.time()
     if mode == "enc":
@@ -51,9 +50,8 @@ def main():
         f"Completed {mode_name} ({len(message)}) chars in: {datetime.timedelta(seconds=total_time)}"
     )
 
-    file_obj = open(out_file, "w")
-    file_obj.write(translated_text)
-    file_obj.close()
+    with open(out_file, "w") as fo:
+        fo.write(translated_text)
 
 
 def gen_outfile_name(mode, filename):
