@@ -1,0 +1,7 @@
+{
+    "python.pythonPath": "cc-py/.env/bin/python",
+    "python.formatting.provider": "black",
+    "python.testing.pytestEnabled": true,
+    "python.testing.autoTestDiscoverOnSaveEnabled": true,
+    "python.testing.cwd": "cc-py"
+}
