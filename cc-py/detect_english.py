@@ -10,10 +10,12 @@ from pathlib import Path
 def load_data(words_file=None):
     UPPER_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     LETTERS_AND_SPACE = UPPER_LETTERS + UPPER_LETTERS.lower() + " \t\n"
+    SYMBOLS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 !?."
     data = {}
     data["WORDS"] = load_words(words_file)
     data["UPPER_LETTERS"] = UPPER_LETTERS
     data["LETTERS_AND_SPACE"] = LETTERS_AND_SPACE
+    data["SYMBOLS"] = SYMBOLS
 
     return data
 
