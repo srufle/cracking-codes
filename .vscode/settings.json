@@ -6,5 +6,6 @@
     "python.testing.cwd": "cc-py",
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true,
-    "python.linting.pylintUseMinimalCheckers": false
+    "python.linting.pylintUseMinimalCheckers": false,
+    "terminal.integrated.scrollback": 10000
 }
