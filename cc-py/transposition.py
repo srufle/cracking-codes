@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-import sys
 import argparse
+import datetime
 import math
-import time, os, datetime
+import os
+import sys
+import time
 
 
 def main():
@@ -18,8 +20,8 @@ def main():
     key = args.key
     mode = args.mode
 
-    if file_to_use == None:
-        if message == None:
+    if file_to_use is None:
+        if message is None:
             message = ""
             for line in sys.stdin:
                 message += line.rstrip()
@@ -36,13 +38,13 @@ def main():
         mode_name = "Encrypting"
         out_file = gen_outfile_name(mode, file_to_use)
         translated_text = encrypt_message(key, message)
-        if file_to_use == None:
+        if file_to_use is None:
             print(f"Cipher:{translated_text}|")
     elif mode == "dec":
         mode_name = "Decrypting"
         out_file = gen_outfile_name(mode, file_to_use)
         translated_text = decrypt_message(key, message)
-        if file_to_use == None:
+        if file_to_use is None:
             print(f"Clear Text:{translated_text}|")
 
     total_time = round(time.time() - start_time, 2)

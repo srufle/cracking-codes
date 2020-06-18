@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import logging as log
+
 import crypto_math as cm
 
 log.basicConfig(level=log.INFO)
