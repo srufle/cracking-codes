@@ -4,6 +4,7 @@ import logging as log
 import random as r
 import affine as af
 import detect_english as de
+import crypto_math as cm
 import pytest
 
 log.basicConfig(level=log.INFO)
@@ -78,3 +79,24 @@ def test_affine_all():
             print(f"Mismatch with {key} and message {message}")
             print(f"Decrypted as: {decrypted}")
             sys.exit()
+
+
+@pytest.mark.xfail
+def test_affine_key_test():
+    message = "Make things as simple as possible, but not simpler."
+    data = de.load_data()
+    SYMBOLS = data["SYMBOLS"]
+    test_messages = {}
+    for key_a in range(2, 80):
+        key = key_a * len(SYMBOLS) + 1
+
+        if cm.gcd(key_a, len(SYMBOLS)) == 1:
+            cipher_text = af.encrypt_message(key, message, data)
+            # print(f"{key_a}, {cipher_text}")
+            if cipher_text in test_messages:
+                print(
+                    f"Key: {key_a} is a duplicate of key {test_messages[cipher_text]}"
+                )
+                pytest.fail()
+            test_messages[cipher_text] = key_a
+
