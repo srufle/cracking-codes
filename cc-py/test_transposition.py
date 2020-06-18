@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
 import sys
-import math
 import random
 import transposition
 import detect_english as de
-from pathlib import Path
 
 
 def test_detect_english_empty():

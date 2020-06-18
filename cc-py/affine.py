@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 import sys
+import argparse
 import crypto_math as cm
 import detect_english as de
-import argparse
-import math
 import random as r
 import time, os, datetime
 

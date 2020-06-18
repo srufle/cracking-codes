@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import sys
 import logging as log
-import crypto_math as cm
 import random as r
 import affine as af
 import detect_english as de

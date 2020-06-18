@@ -1,12 +1,3 @@
-#!/usr/bin/env python3
-import sys
-import argparse
-import math
-import time, os, datetime
-import logging as log
-from pathlib import Path
-
-
 def gcd(a, b):
     # Greatest Common Divisor
     # https://en.wikipedia.org/wiki/Euclidean_algorithm
