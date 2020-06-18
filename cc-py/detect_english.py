@@ -28,6 +28,8 @@ def load_words(words_file=None):
         else:
             print(f"Unable to find {words_file}")
             sys.exit(1)
+    else:
+        log.debug("Skipped loading WORDS file")
 
     return words
 
@@ -46,7 +48,7 @@ def get_english_count(message, data):
     for word in possible_words:
         if word in WORDS:
             matches += 1
-
+    log.debug(f"Matches:{matches}, Possible words: {possible_words}")
     return float(matches) / len(possible_words)
 
 
