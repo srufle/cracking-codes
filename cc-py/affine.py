@@ -94,8 +94,8 @@ def encrypt_message(key, message, data):
     for symbol in message:
         if symbol in SYMBOLS:
             symbol_index = SYMBOLS.find(symbol)
-            cipher_index = (symbol_index * key_a + key_b) % len(SYMBOLS)
-            cipher_text += SYMBOLS[cipher_index]
+            new_index = (symbol_index * key_a + key_b) % len(SYMBOLS)
+            cipher_text += SYMBOLS[new_index]
         else:
             cipher_text += symbol
 
@@ -111,8 +111,8 @@ def decrypt_message(key, message, data):
     for symbol in message:
         if symbol in SYMBOLS:
             symbol_index = SYMBOLS.find(symbol)
-            clear_index = (symbol_index - key_b) * mod_inverse_of_key_a % len(SYMBOLS)
-            clear_text += SYMBOLS[clear_index]
+            new_index = (symbol_index - key_b) * mod_inverse_of_key_a % len(SYMBOLS)
+            clear_text += SYMBOLS[new_index]
         else:
             clear_text += symbol
 
