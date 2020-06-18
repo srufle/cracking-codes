@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 import sys
 import argparse
-import crypto_math as cm
-import detect_english as de
 import random as r
 import time, os, datetime
+import crypto_math as cm
+import detect_english as de
 
 
 def main():
@@ -13,12 +13,20 @@ def main():
     # parser.add_argument("-f", "--file", type=str)
     parser.add_argument("-e", "--mode", type=str, choices=["enc", "dec"], default="enc")
     parser.add_argument("-k", "--key", type=int, default=2894)
+    parser.add_argument("-g", "--gen-key", dest="gen_key", type=bool, default=False)
 
     args = parser.parse_args()
     message = args.message
     file_to_use = None  # args.file
     key = args.key
     mode = args.mode
+    gen_key = args.gen_key
+    data = de.load_data()
+
+    if gen_key:
+        key = get_random_key(data)
+        print(f"Generated Key: {key}")
+        return 0
 
     if file_to_use == None:
         if message == None:
@@ -33,7 +41,6 @@ def main():
         with open(file_to_use) as fo:
             message = fo.read()
 
-    data = de.load_data()
     start_time = time.time()
     if mode == "enc":
         mode_name = "Encrypting"
