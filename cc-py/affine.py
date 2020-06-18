@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
-import sys
 import argparse
+import datetime
+import os
 import random as r
-import time, os, datetime
+import sys
+import time
+
 import crypto_math as cm
 import detect_english as de
 
@@ -28,8 +31,8 @@ def main():
         print(f"Generated Key: {key}")
         return 0
 
-    if file_to_use == None:
-        if message == None:
+    if file_to_use is None:
+        if message is None:
             message = ""
             for line in sys.stdin:
                 message += line.rstrip()
@@ -45,14 +48,14 @@ def main():
     if mode == "enc":
         mode_name = "Encrypting"
         translated_text = encrypt_message(key, message, data)
-        if file_to_use == None:
+        if file_to_use is None:
             print(f"Key:{key}")
             print(f"{mode_name}")
             print(f"Cipher:{translated_text}|")
     elif mode == "dec":
         mode_name = "Decrypting"
         translated_text = decrypt_message(key, message, data)
-        if file_to_use == None:
+        if file_to_use is None:
             print(f"Key:{key}")
             print(f"{mode_name}")
             print(f"Clear Text:{translated_text}|")
@@ -80,9 +83,8 @@ def check_keys(key_a, key_b, mode, data):
             f"Key A must be greater then 0 and Key B must be between 0 and {symbol_length}."
         )
     if cm.gcd(key_a, symbol_length) != 1:
-        sys.exit(
-            f"Key A ({key_a}) and symbol set size ({symbol_length}) are not relatively prime.  Choose a different key."
-        )
+        err = f"Key A ({key_a}) and symbol set size ({symbol_length}) are not relatively prime.  Choose a different key."
+        sys.exit(err)
 
 
 def encrypt_message(key, message, data):
@@ -90,12 +92,12 @@ def encrypt_message(key, message, data):
     check_keys(key_a, key_b, "enc", data)
 
     cipher_text = ""
-    SYMBOLS = data["SYMBOLS"]
+    symbols_data = data["SYMBOLS"]
     for symbol in message:
-        if symbol in SYMBOLS:
-            symbol_index = SYMBOLS.find(symbol)
-            new_index = (symbol_index * key_a + key_b) % len(SYMBOLS)
-            cipher_text += SYMBOLS[new_index]
+        if symbol in symbols_data:
+            symbol_index = symbols_data.find(symbol)
+            new_index = (symbol_index * key_a + key_b) % len(symbols_data)
+            cipher_text += symbols_data[new_index]
         else:
             cipher_text += symbol
 
@@ -106,13 +108,15 @@ def decrypt_message(key, message, data):
     key_a, key_b = get_key_parts(key, data)
     check_keys(key_a, key_b, "dec", data)
     clear_text = ""
-    SYMBOLS = data["SYMBOLS"]
-    mod_inverse_of_key_a = cm.find_mod_inverse(key_a, len(SYMBOLS))
+    symbols_data = data["SYMBOLS"]
+    mod_inverse_of_key_a = cm.find_mod_inverse(key_a, len(symbols_data))
     for symbol in message:
-        if symbol in SYMBOLS:
-            symbol_index = SYMBOLS.find(symbol)
-            new_index = (symbol_index - key_b) * mod_inverse_of_key_a % len(SYMBOLS)
-            clear_text += SYMBOLS[new_index]
+        if symbol in symbols_data:
+            symbol_index = symbols_data.find(symbol)
+            new_index = (
+                (symbol_index - key_b) * mod_inverse_of_key_a % len(symbols_data)
+            )
+            clear_text += symbols_data[new_index]
         else:
             clear_text += symbol
 
@@ -120,8 +124,8 @@ def decrypt_message(key, message, data):
 
 
 def get_random_key(data):
-    SYMBOLS = data["SYMBOLS"]
-    symbols_len = len(SYMBOLS)
+    symbols_data = data["SYMBOLS"]
+    symbols_len = len(symbols_data)
     while True:
         key_a = r.randint(2, symbols_len)
         key_b = r.randint(2, symbols_len)

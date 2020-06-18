@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-import sys
 import argparse
+import sys
 
 parser = argparse.ArgumentParser(description="Caesar Cipher Cracker")
 parser.add_argument("-m", "--message", type=str)
@@ -12,7 +12,7 @@ SYMBOLS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890!?."
 
 message = args.message
 symbols_len = len(SYMBOLS)
-if message == None:
+if message is None:
     message = ""
     for line in sys.stdin:
         message += line.rstrip()

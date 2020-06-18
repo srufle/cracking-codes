@@ -1,5 +1,5 @@
-import sys
 import logging as log
+import sys
 from pathlib import Path
 
 
@@ -18,8 +18,7 @@ def load_data(words_file=None):
 
 def load_words(words_file=None):
     words = {}
-    if words_file != None:
-
+    if words_file is not None:
         words_file = Path(words_file).resolve()
         if words_file.exists():
             with words_file.open() as fo:

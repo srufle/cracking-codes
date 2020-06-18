@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
-import sys
 import argparse
-import random as r
+import datetime
 import logging as log
-import time, os, datetime
-import crypto_math as cm
+import os
+import sys
+import time
+
 import affine as af
+import crypto_math as cm
 import detect_english as de
 
 
@@ -22,8 +24,8 @@ def main():
     words_file = de.get_words_file_path()
     data = de.load_data(words_file)
 
-    if file_to_use == None:
-        if message == None:
+    if file_to_use is None:
+        if message is None:
             message = ""
             for line in sys.stdin:
                 message += line.rstrip()
@@ -38,7 +40,7 @@ def main():
     start_time = time.time()
 
     translated_text = hack_message(message, data)
-    if translated_text != None:
+    if translated_text is not None:
         print(f"Message: {translated_text}|")
     else:
         print("Failed to decrypt message")
@@ -50,8 +52,8 @@ def main():
 
 
 def hack_message(message, data):
-    SYMBOLS = data["SYMBOLS"]
-    symbols_len = len(SYMBOLS)
+    symbols_data = data["SYMBOLS"]
+    symbols_len = len(symbols_data)
     for key in range(symbols_len ** 2):
         key_a = af.get_key_parts(key, data)[0]
         if cm.gcd(key_a, symbols_len) != 1:

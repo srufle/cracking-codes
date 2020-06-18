@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
-import sys
 import argparse
-import math
-import time, os, datetime
 import logging as log
+import sys
+from pathlib import Path
+
 import detect_english as de
 import transposition as tr
-from pathlib import Path
 
 
 def main():
@@ -29,7 +28,7 @@ def main():
         sys.exit(1)
 
     clear_text = hack_message(message, data)
-    if clear_text == None:
+    if clear_text is None:
         print(f"Failed to hack {encrypted_file_path}")
     else:
         print(f"Hacked Message: {clear_text[:100]}")

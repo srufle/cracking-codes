@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-import sys
 import random
-import transposition
+import sys
+
 import detect_english as de
+import transposition
 
 
 def test_detect_english_empty():
     data = de.load_data()
-    assert de.is_english("", data) == False
+    assert not de.is_english("", data)
 
 
 def test_detect_english_encrypted_text():
@@ -39,9 +40,8 @@ ros tithn amd e kf ,bu eecfm. ftmrnwasiai rurmni nhaS  kunnphate   tefnlaninoedr
 eeeodrkeooashefat thnne rig dahsndyoha,r r-eocet-tsae
 T
     """
-    assert (
-        de.is_english(encrypted_text, data, word_percentage=80, letter_percentage=80)
-        == False
+    assert not de.is_english(
+        encrypted_text, data, word_percentage=80, letter_percentage=80
     )
 
 
@@ -49,10 +49,7 @@ def test_detect_english_simple():
     words_file = de.get_words_file_path()
     data = de.load_data(words_file)
     clear_text = "Is this sentence English text?"
-    assert (
-        de.is_english(clear_text, data, word_percentage=80, letter_percentage=80,)
-        == True
-    )
+    assert de.is_english(clear_text, data, word_percentage=80, letter_percentage=80)
 
 
 def test_trans_all():

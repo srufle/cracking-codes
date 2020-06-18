@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
-import sys
 import logging as log
 import random as r
-import affine as af
-import detect_english as de
-import crypto_math as cm
+import sys
+
 import pytest
+
+import affine as af
+import crypto_math as cm
+import detect_english as de
 
 log.basicConfig(level=log.INFO)
 
@@ -21,7 +23,7 @@ def test_check_keys_kay_a_1():
     with pytest.raises(SystemExit) as exc:
         af.check_keys(1, 0, "enc", data)
 
-    assert exc.match("Cipher is weak if Key A is 1") == True
+    assert exc.match("Cipher is weak if Key A is 1")
 
 
 def test_check_keys_key_b_0():
@@ -29,7 +31,7 @@ def test_check_keys_key_b_0():
     with pytest.raises(SystemExit) as exc:
         af.check_keys(7, 0, "enc", data)
 
-    assert exc.match("Cipher is weak if Key B is 0") == True
+    assert exc.match("Cipher is weak if Key B is 0")
 
 
 def test_check_keys_key_a_and_b_less_0():
@@ -37,7 +39,7 @@ def test_check_keys_key_a_and_b_less_0():
     with pytest.raises(SystemExit) as exc:
         af.check_keys(-7, -5, "enc", data)
 
-    assert exc.match("Key A must be greater then 0 and Key B must be between") == True
+    assert exc.match("Key A must be greater then 0 and Key B must be between")
 
 
 def test_check_keys_key_gcd_not_equal_1():
@@ -45,7 +47,7 @@ def test_check_keys_key_gcd_not_equal_1():
     with pytest.raises(SystemExit) as exc:
         af.check_keys(60, 10, "enc", data)
 
-    assert exc.match("are not relatively prime") == True
+    assert exc.match("are not relatively prime")
 
 
 def test_affine_encrypt_message():
@@ -63,9 +65,9 @@ def test_affine_encrypt_message():
 def test_affine_all():
     r.seed(42)
     data = de.load_data()
-    SYMBOLS = data["SYMBOLS"]
+    symbols_data = data["SYMBOLS"]
     for i in range(50):
-        message = SYMBOLS * r.randint(4, 40)
+        message = symbols_data * r.randint(4, 40)
         message = list(message)
         r.shuffle(message)
         message = "".join(message)
@@ -85,12 +87,12 @@ def test_affine_all():
 def test_affine_key_test():
     message = "Make things as simple as possible, but not simpler."
     data = de.load_data()
-    SYMBOLS = data["SYMBOLS"]
+    symbols_data = data["SYMBOLS"]
     test_messages = {}
     for key_a in range(2, 80):
-        key = key_a * len(SYMBOLS) + 1
+        key = key_a * len(symbols_data) + 1
 
-        if cm.gcd(key_a, len(SYMBOLS)) == 1:
+        if cm.gcd(key_a, len(symbols_data)) == 1:
             cipher_text = af.encrypt_message(key, message, data)
             # print(f"{key_a}, {cipher_text}")
             if cipher_text in test_messages:
@@ -99,4 +101,3 @@ def test_affine_key_test():
                 )
                 pytest.fail()
             test_messages[cipher_text] = key_a
-
