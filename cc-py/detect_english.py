@@ -10,6 +10,7 @@ def load_data(words_file=None):
     data = {}
     data["WORDS"] = load_words(words_file)
     data["UPPER_LETTERS"] = UPPER_LETTERS
+    data["LETTERS"] = UPPER_LETTERS
     data["LETTERS_AND_SPACE"] = LETTERS_AND_SPACE
     data["SYMBOLS"] = SYMBOLS
 
