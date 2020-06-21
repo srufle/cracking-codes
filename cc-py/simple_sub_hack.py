@@ -76,8 +76,12 @@ def add_letters_to_mapping(letter_mapping, cipher_word, candidate):
     # mapping.
     for i in range(len(cipher_word)):
         lmw = cipher_word[i]
+        # log.debug(
+        #     f"cipher_word[{i}]={lmw}, candidate[{i}]={candidate[i]}, letter_mapping[{lmw}]={letter_mapping[lmw]}"
+        # )
         if candidate[i] not in letter_mapping[lmw]:
             letter_mapping[lmw].append(candidate[i])
+            # log.debug(f"letter_mapping[{lmw}]={letter_mapping[lmw]}")
 
 
 def intersect_mappings(mapA, mapB, data):
@@ -97,6 +101,14 @@ def intersect_mappings(mapA, mapB, data):
 
 
 def remove_solved_letters_from_mapping(letter_mapping, data):
+    # Cipherletters in the mapping that map to only one letter are
+    # "solved" and can be removed from the other letters.
+    # For example, if 'A' maps to potential letters ['M', 'N'], and 'B'
+    # maps to ['N'], then we know that 'B' must map to 'N', so we can
+    # remove 'N' from the list of what 'A' could map to. So 'A' then maps
+    # to ['M']. Note that now that 'A' maps to only one letter, we can
+    # remove 'M' from the list of letters for every other letter.
+    # (This is why there is a loop that keeps reducing the map.)
     loop_again = True
     LETTERS = data["LETTERS"]
     while loop_again:
@@ -133,10 +145,10 @@ def decrypt_with_hacked_key(cipher_text, letter_mapping, data):
             key_index = LETTERS.find(find_char)
             key[key_index] = cipher_letter
             log.debug(
-                f"cipher_letter={cipher_letter}, find_char={find_char}, key_index={key_index}"
+                f"key={key}, cipher_letter={cipher_letter}, find_char={find_char}, key_index={key_index}"
             )
-
         else:
+            log.debug(f"cipher_text={cipher_text}, replace={cipher_letter}, with=_")
             cipher_text = cipher_text.replace(cipher_letter.lower(), "_")
             cipher_text = cipher_text.replace(cipher_letter.upper(), "_")
     key = "".join(key)

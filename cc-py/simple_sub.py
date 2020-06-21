@@ -97,14 +97,20 @@ def translate_message(key, message, data, mode):
     log.debug(f"charsA={charsA}, charsB={charsB}")
     for symbol in message:
         upper_symbol = symbol.upper()
+
         if upper_symbol in charsA:
             symbol_index = charsA.find(upper_symbol)
+            symbol_b = charsB[symbol_index]
+            log.debug(
+                f"upper_symbol={upper_symbol}, symbol_index={symbol_index}, symbol_b={symbol_b}"
+            )
             if symbol.isupper():
-                translated += charsB[symbol_index].upper()
+                translated += symbol_b.upper()
             else:
-                translated += charsB[symbol_index].lower()
+                translated += symbol_b.lower()
         else:
             translated += symbol
+        log.debug(f"symbol={symbol}, translated={translated},")
 
     return translated
 
