@@ -89,7 +89,7 @@ def translate_message(key, message, data, mode):
     translated = ""
     log.debug(f"key={key}, mode={mode}")
     charsA = data["LETTERS"]
-    charsB = key
+    charsB = key.upper()
 
     if mode == "dec":
         charsA, charsB = charsB, charsA
