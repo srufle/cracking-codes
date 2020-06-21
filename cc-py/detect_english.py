@@ -85,3 +85,34 @@ def get_words_file_path(path=None):
         if count > 99:
             break
     return words_file
+
+
+def make_word_patterns(data):
+    WORDS = data["WORDS"]
+    word_patterns = {}
+    data["WORD_PATTERNS"] = word_patterns
+    if len(WORDS) != 0:
+        for word in WORDS.keys():
+            if word.isalpha():
+                pattern = get_word_pattern(word)
+                if pattern not in word_patterns:
+                    word_patterns[pattern] = [word]
+                else:
+                    word_patterns[pattern].append(word)
+
+    return data
+
+
+def get_word_pattern(word):
+    word = word.lower()
+    next_num = 0
+    letter_nums = {}
+    word_pattern = []
+
+    for letter in word:
+        if letter not in letter_nums:
+            letter_nums[letter] = str(next_num)
+            next_num += 1
+        word_pattern.append(letter_nums[letter])
+
+    return ".".join(word_pattern)
