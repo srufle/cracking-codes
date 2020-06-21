@@ -72,8 +72,11 @@ def is_english(message, data, word_percentage=20, letter_percentage=85):
     return words_match and letters_match
 
 
-def get_words_file_path():
-    words_file = "content/english-words/words.txt"
+def get_words_file_path(path=None):
+    if path is None:
+        words_file = "content/english-words/words.txt"
+    else:
+        words_file = path
     count = 0
     while not Path(words_file).exists():
         words_file = "../" + words_file
