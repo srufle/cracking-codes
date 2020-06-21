@@ -2,6 +2,7 @@
 import argparse
 import datetime
 import os
+import logging as log
 import random as r
 import sys
 import time
@@ -86,12 +87,14 @@ def decrypt_message(key, message, data):
 
 def translate_message(key, message, data, mode):
     translated = ""
+    log.debug(f"key={key}, mode={mode}")
     charsA = data["LETTERS"]
     charsB = key
 
     if mode == "dec":
         charsA, charsB = charsB, charsA
 
+    log.debug(f"charsA={charsA}, charsB={charsB}")
     for symbol in message:
         upper_symbol = symbol.upper()
         if upper_symbol in charsA:
