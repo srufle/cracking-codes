@@ -8,6 +8,26 @@ import simple_sub_hack as ssh
 log.basicConfig(level=log.DEBUG)
 
 
+def test_detect_english_make_word_patterns():
+    words_file = de.get_words_file_path()
+    data = de.load_data(words_file)
+    data = de.make_word_patterns(data)
+
+    print(f"WORD_PATTERNS len = {len(data['WORD_PATTERNS'])}")
+    pattern_values = []
+    index = 0
+    limit = 5
+    for key in data["WORD_PATTERNS"].keys():
+        value = data["WORD_PATTERNS"][key]
+        pattern_values.append((key, value))
+        index += 1
+        if index == limit:
+            break
+
+    print(f"WORD_PATTERNS = {pattern_values}")
+    assert len(data["WORD_PATTERNS"]) != 0
+
+
 def test_simple_sub_hack():
 
     words_file = de.get_words_file_path("content/dictionary.txt")
