@@ -82,6 +82,13 @@ def test_freq_get_frequency_order():
     assert frequency_order == "ETIANORSHCLMDGFUPBWYVKXQJZ"
 
 
+def test_english_freq_match():
+    data = de.load_data()
+    message = test_quote
+    score = fa.english_freq_match(message, data)
+    assert score == 12
+
+
 def test_vigenere_quote():
     data = de.load_data()
     key = "ASIMOV"

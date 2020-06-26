@@ -81,8 +81,8 @@ def english_freq_match(message, data):
         if common_letter in freq_order[:6]:
             match_score += 1
 
-    for uncommon_letter in ETAOIN[:-6]:
-        if uncommon_letter in freq_order[:-6]:
+    for uncommon_letter in ETAOIN[-6:]:
+        if uncommon_letter in freq_order[-6:]:
             match_score += 1
 
     return match_score
