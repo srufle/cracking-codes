@@ -54,6 +54,11 @@ def test_simple_sub_hack_quote():
     data = de.load_data(words_file)
     data = de.make_word_patterns(data)
 
+    # Valid Quote keys:
+    # LxWOAYUISxxMNXPxxCRJTQExxZ - from /home/srufle/Downloads/CrackingCodesFiles/
+    # lxwoayuisxxmnxpxxcrjtqexxz - from our own calculation
+    # Full good: LFWOAYUISVKMNXPBDCRJTQEGHZ - default test key
+
     message = """Sy l nlx sr pyyacao l ylwj eiswi upar lulsxrj isr sxrjsxwjr, ia esmm
         rwctjsxsza sj wmpramh, lxo txmarr jia aqsoaxwa sr pqaceiamnsxu, ia esmm caytra
         jp famsaqa sj. Sy, px jia pjiac ilxo, ia sr pyyacao rpnajisxu eiswi lyypcor

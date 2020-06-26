@@ -152,8 +152,14 @@ def decrypt_with_hacked_key(cipher_text, letter_mapping, data):
             cipher_text = cipher_text.replace(cipher_letter.lower(), "_")
             cipher_text = cipher_text.replace(cipher_letter.upper(), "_")
     key = "".join(key)
-    log.debug(f"key={key}")
+    print(f"key={key}")
     return ss.decrypt_message(key, cipher_text, data)
+
+
+# Valid Quote keys:
+# LxWOAYUISxxMNXPxxCRJTQExxZ - from /home/srufle/Downloads/CrackingCodesFiles/
+# lxwoayuisxxmnxpxxcrjtqexxz - from our own calculation
+# Full good: LFWOAYUISVKMNXPBDCRJTQEGHZ - default test key
 
 
 def get_blank_cipher_letter_mapping():
