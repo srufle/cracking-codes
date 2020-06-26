@@ -7,12 +7,14 @@ def load_data(words_file=None):
     UPPER_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     LETTERS_AND_SPACE = UPPER_LETTERS + UPPER_LETTERS.lower() + " \t\n"
     SYMBOLS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 !?."
+    ETAOIN = "ETAOINSHRDLCUMWFGYPBVKJXQZ"
     data = {}
     data["WORDS"] = load_words(words_file)
     data["UPPER_LETTERS"] = UPPER_LETTERS
     data["LETTERS"] = UPPER_LETTERS
     data["LETTERS_AND_SPACE"] = LETTERS_AND_SPACE
     data["SYMBOLS"] = SYMBOLS
+    data["ETAOIN"] = ETAOIN
 
     return data
 
