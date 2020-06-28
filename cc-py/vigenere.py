@@ -85,10 +85,12 @@ def translate_message(key, message, data, mode):
     for symbol in message:
         num = LETTERS.find(symbol.upper())
         if num != -1:
+            key_letter = key[key_index]
+            # print(f" {key}[{key_index}] = {key_letter}")
             if mode == "enc":
-                num += LETTERS.find(key[key_index])
+                num += LETTERS.find(key_letter)
             elif mode == "dec":
-                num -= LETTERS.find(key[key_index])
+                num -= LETTERS.find(key_letter)
             num %= len(LETTERS)
 
             if symbol.isupper():
