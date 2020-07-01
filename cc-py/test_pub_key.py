@@ -45,6 +45,19 @@ def test_pub_key_decrypt_message():
     assert message == expected_message
 
 
+def test_pub_key_long_message():
+    message_filename = "test_message_long.enc"
+    key_filename = "pubkey_nobody.pub"
+    message = "Journalists belong in the gutter because that is where the ruling classes throw their guilty secrets. Gerald Priestland. The Founding Fathers gave the free press the protection it must have to bare the secrets of government and inform the people. Hugo Black."
+    encrypted_content = pk.encrypt_and_write_file(
+        message_filename, key_filename, message
+    )
+
+    key_filename = "privkey_nobody.priv"
+    decrypted_content = pk.read_from_file_and_decrypt(message_filename, key_filename)
+    assert decrypted_content == message
+
+
 def test_pub_key_encrypt_and_write_file():
     message_filename = "test_message.enc"
     key_filename = "pubkey_nobody.pub"
